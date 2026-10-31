@@ -12,17 +12,15 @@
 - **Class:** B.Tech CSE(QE) – 2B  
 - **Section:** S-13 204  
 - **Repository:** [https://github.com/jayraguhuram-commits/backend_lab_2](https://github.com/jayraguhuram-commits/backend_lab_2)  
-- **Live Deployed API:** [https://backend-development-fundamentals-1-fzeu.onrender.com](https://backend-development-fundamentals-1-fzeu.onrender.com)  
+- **Live Deployed API:** [https://backend-development-fundamentals-1-fzeu.onrender.com]https://backend-lab-2-1-2pt4.onrender.com/
 
 ---
 
-## 1. Objective & Overview
+
 
 The objective of this lab is to develop and deploy a production-ready RESTful backend API using **Express.js** and **SQLite**. The service manages a digital book collection and supports full **CRUD** (Create, Read, Update, Delete) operations over HTTP, complete with database persistence, auto-migration, input validation, and cloud deployment compatibility.
 
-### Key Highlights
-- **Full CRUD REST API**: Comprehensive book inventory operations.
-- **Self-Healing SQLite Database**: Automatically creates the `database/` directory, compiles the `book` table schema if missing, and seeds 10 default book records on cold start.
+
 - **Production-Ready Cloud Architecture**: Configured with dynamic port binding (`process.env.PORT`), host binding on `0.0.0.0`, and CORS middleware.
 - **Health & Discovery Endpoints**: Provides `GET /` API directory and `GET /health` uptime probe.
 - **Dual Route Tolerance**: Gracefully routes requests both with and without trailing slashes (e.g., `/books` and `/books/`).
@@ -303,43 +301,7 @@ This runs `test_server.js`, executing a full end-to-end integration test verifyi
 
 ---
 
-## 7. Cloud Deployment Guide
-
-### Option A: Deploying on Render (Recommended)
-
-1. Fork or push this repository to GitHub: `https://github.com/jayraguhuram-commits/backend_lab_2`.
-2. Log in to [Render](https://render.com/).
-3. On your dashboard, click **New +** and choose **Web Service**.
-4. Connect your GitHub repository `backend_lab_2`.
-5. Enter the following settings:
-   - **Name:** `backend-lab-2`
-   - **Region:** Any region closest to your users (e.g., Singapore, Oregon, Frankfurt)
-   - **Branch:** `main`
-   - **Root Directory:** Leave empty (root of repository)
-   - **Runtime:** `Node`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-   - **Instance Type:** `Free`
-6. Click **Advanced Settings**:
-   - **Health Check Path:** `/health`
-7. Click **Create Web Service**.
-8. Once built and healthy, Render will assign your public HTTPS URL (e.g., `https://backend-lab-2.onrender.com`).
-
-### Option B: Deploying with Docker
-
-1. **Build the Docker Image:**
-   ```bash
-   docker build -t backend-lab-2 .
-   ```
-2. **Run the Container:**
-   ```bash
-   docker run -d -p 3000:3000 --name backend-lab-2-app backend-lab-2
-   ```
-3. Open `http://localhost:3000/` in your browser or Postman.
-
----
-
-## 8. Postman Verification Screenshots
+##
 
 ### 1. Retrieve All Books (`GET /books/`)
 ![GET all books](screenshots/get-all-books.png)
@@ -361,8 +323,7 @@ This runs `test_server.js`, executing a full end-to-end integration test verifyi
 
 ---
 
-## 9. Problems Faced and Solutions
-
+##
 1. **Truncated Code in Initial Repository:**
    - *Problem:* The original `app.js` in the remote repository was abruptly cut off at line 71 during the `POST /books` handler, causing syntax errors on launch and missing PUT and DELETE operations.
    - *Solution:* Rebuilt the server logic with standard async/await Express routes, complete SQL parameterized queries, and defensive input validation.
