@@ -17,8 +17,10 @@ const initializeDBAndServer = async () => {
             driver: sqlite3.Database,
         });
 
-        app.listen(3000, () => {
-            console.log("Server running at http://localhost:3000/");
+        // Use Render's environment PORT, or fallback to 3000 for local development
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+            console.log(`Server running at http://localhost:${PORT}/`);
         });
     } catch (error) {
         console.error(`Database connection failed: ${error.message}`);
@@ -66,71 +68,4 @@ app.post("/books/", async (request, response) => {
         }
 
         const result = await db.run(
-            "INSERT INTO book (title, author, price, pages) VALUES (?, ?, ?, ?)",
-            title,
-            author,
-            price,
-            pages
-        );
-
-        response.status(201).json({
-            id: result.lastID,
-            title,
-            author,
-            price,
-            pages,
-        });
-    } catch (error) {
-        response.status(500).json({ error: "Failed to add book" });
-    }
-});
-
-// PUT a book
-app.put("/books/:bookId/", async (request, response) => {
-    try {
-        const { bookId } = request.params;
-        const { title, author, price, pages } = request.body;
-
-        if (!title || !author || price == null || pages == null) {
-            return response.status(400).json({
-                error: "title, author, price, and pages are required",
-            });
-        }
-
-        const result = await db.run(
-            "UPDATE book SET title = ?, author = ?, price = ?, pages = ? WHERE id = ?",
-            title,
-            author,
-            price,
-            pages,
-            bookId
-        );
-
-        if (result.changes === 0) {
-            return response.status(404).json({ error: "Book not found" });
-        }
-
-        response.status(200).json({ message: "Book updated successfully" });
-    } catch (error) {
-        response.status(500).json({ error: "Failed to update book" });
-    }
-});
-
-// DELETE a book
-app.delete("/books/:bookId/", async (request, response) => {
-    try {
-        const { bookId } = request.params;
-
-        const result = await db.run("DELETE FROM book WHERE id = ?", bookId);
-
-        if (result.changes === 0) {
-            return response.status(404).json({ error: "Book not found" });
-        }
-
-        response.status(200).json({ message: "Book deleted successfully" });
-    } catch (error) {
-        response.status(500).json({ error: "Failed to delete book" });
-    }
-});
-
-module.exports = app;
+            "INSERT INTO book (title, author, price, pages
